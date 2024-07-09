@@ -60,10 +60,6 @@ kapt {
 
 dependencies {
 
-    // Hilt
-    kapt(libs.hilt.android.compiler)
-    implementation(libs.hilt.android)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -81,8 +77,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 
+    // Hilt
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.okio)
+
+    // dotenv-kotlin
+    implementation(libs.dotenv.kotlin)
 }
