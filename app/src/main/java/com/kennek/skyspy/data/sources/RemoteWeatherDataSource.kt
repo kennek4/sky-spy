@@ -4,10 +4,12 @@ import com.kennek.skyspy.data.remote.WeatherApi
 import com.kennek.skyspy.data.responses.CurrentWeather
 import com.kennek.skyspy.data.responses.Forecast
 import com.kennek.skyspy.util.Resource
+import io.github.cdimascio.dotenv.Dotenv
 import javax.inject.Inject
 
 class RemoteWeatherDataSource @Inject constructor(
-    private val api: WeatherApi
+    private val api: WeatherApi,
+    private val dotenv: Dotenv
 ) {
 
     suspend fun getCurrentWeather(
@@ -15,10 +17,9 @@ class RemoteWeatherDataSource @Inject constructor(
         lat: Float,
         units: String,
         lang: String,
-        appId: String
     ): Resource<CurrentWeather> {
         val response = try {
-            api.getCurrentWeather(lon, lat, units, lang, appId)
+            api.getCurrentWeather(lon, lat, units, lang, dotenv["API_KEY"])
         } catch (error: Exception) {
             return Resource.Error(message = "An error has occurred. $error")
         }
@@ -31,11 +32,10 @@ class RemoteWeatherDataSource @Inject constructor(
         lat: Float,
         units: String,
         lang: String,
-        appId: String
     ): Resource<Forecast> {
 
         val response = try {
-            api.getForecast(lon, lat, units, lang, appId)
+            api.getForecast(lon, lat, units, lang, dotenv["API_KEY"])
         } catch (error: Exception) {
             return Resource.Error(message = "An error has occurred. $error")
         }
