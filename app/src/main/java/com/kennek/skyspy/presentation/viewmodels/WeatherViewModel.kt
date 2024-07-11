@@ -12,9 +12,5 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository
 ): ViewModel() {
-    fun apiCall() {
-        viewModelScope.launch {
-            repository.getCurrentWeather()
-        }
-    }
+
 }

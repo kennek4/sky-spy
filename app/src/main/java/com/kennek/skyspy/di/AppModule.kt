@@ -9,8 +9,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.cdimascio.dotenv.Dotenv
-import io.github.cdimascio.dotenv.dotenv
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -18,18 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Singleton
-    @Provides
-    fun provideDotEnv(): Dotenv {
-
-        val dotenv = dotenv {
-            directory = "./assets" // found in app/src/main
-            filename = "env"
-        }
-
-        return dotenv
-    }
 
     @Singleton
     @Provides
@@ -58,6 +44,5 @@ object AppModule {
     @Provides
     fun provideRemoteWeatherDataSource(
         api: WeatherApi,
-        dotenv: Dotenv
-    ) = RemoteWeatherDataSource(api, dotenv)
+    ) = RemoteWeatherDataSource(api)
 }

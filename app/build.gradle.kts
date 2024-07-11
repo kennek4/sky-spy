@@ -88,6 +88,11 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.okio)
 
-    // dotenv-kotlin
-    implementation(libs.dotenv.kotlin)
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt(libs.room.compiler)
+
 }

@@ -10,16 +10,5 @@ class WeatherRepository @Inject constructor(
     private val localWeatherDataSource: LocalWeatherDataSource,
     private val remoteWeatherDataSource: RemoteWeatherDataSource,
 ){
-    suspend fun getCurrentWeather(): Boolean {
-        try {
-            val response = remoteWeatherDataSource.getCurrentWeather(113.49f, 53.55f, "metric", "en")
-            println(response)
 
-        } catch (error: Exception) {
-            println(error)
-            return false
-        }
-
-        return true
-    }
 }

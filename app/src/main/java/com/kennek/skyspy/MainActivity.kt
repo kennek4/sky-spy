@@ -21,13 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SkySpyTheme {
-                Button(
-                    onClick = {
-                        vm.apiCall()
-                    })
-                {
-                    Text(text = "Api Call")
-                }
+
             }
         }
     }
