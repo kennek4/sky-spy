@@ -3,6 +3,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
 
+    // Compose
+    alias(libs.plugins.compose.compiler)
+
+    // KSP
+    id("com.google.devtools.ksp")
+
     // Dagger Hilt
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
@@ -96,10 +102,7 @@ dependencies {
     implementation(libs.okio)
 
     // Room
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-
-    // To use Kotlin annotation processing tool (kapt)
-    kapt(libs.room.compiler)
-
+    implementation(libs.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.room.compiler)
 }
