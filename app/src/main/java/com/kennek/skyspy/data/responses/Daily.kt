@@ -5,6 +5,5 @@ data class Daily(
     val sunset: List<String>,
     val temperature_2m_max: List<Double>,
     val temperature_2m_min: List<Double>,
-    val time: List<String>,
-    val uv_index_max: List<Double>
+    val time: List<String>
 )

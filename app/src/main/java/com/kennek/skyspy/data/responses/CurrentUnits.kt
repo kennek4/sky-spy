@@ -5,7 +5,5 @@ data class CurrentUnits(
     val interval: String,
     val precipitation: String,
     val temperature_2m: String,
-    val time: String,
-    val wind_direction_10m: String,
-    val wind_speed_10m: String
+    val time: String
 )
