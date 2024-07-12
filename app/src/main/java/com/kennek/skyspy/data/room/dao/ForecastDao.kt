@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.kennek.skyspy.data.room.entities.Forecast
 
 @Dao
-interface ForecastDAO {
+interface ForecastDao {
 
     @Insert
     suspend fun insertForecast(forecast: Forecast)
@@ -15,7 +15,7 @@ interface ForecastDAO {
     @Delete
     suspend fun deleteForecast(forecast: Forecast)
 
-    @Query("SELECT * FROM forecastentity")
+    @Query("SELECT * FROM forecast")
     fun getAllForecast(): List<Forecast>
 
 }
