@@ -1,6 +1,5 @@
 package com.kennek.skyspy.data.room.db
 
-import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.kennek.skyspy.data.room.dao.ForecastDao
