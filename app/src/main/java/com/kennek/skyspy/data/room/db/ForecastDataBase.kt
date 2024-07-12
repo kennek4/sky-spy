@@ -1,8 +1,9 @@
 package com.kennek.skyspy.data.room.db
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.kennek.skyspy.data.room.dao.ForecastDAO
+import com.kennek.skyspy.data.room.dao.ForecastDao
 import com.kennek.skyspy.data.room.entities.Forecast
 
 @Database(
@@ -10,5 +11,5 @@ import com.kennek.skyspy.data.room.entities.Forecast
     version = 1
 )
 abstract class ForecastDataBase: RoomDatabase() {
-    abstract val dao: ForecastDAO
+    abstract fun forecastDao(): ForecastDao
 }
