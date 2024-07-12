@@ -1,13 +1,18 @@
 package com.kennek.skyspy.data.remote
 
+import com.kennek.skyspy.data.responses.WeatherForecast
+import com.kennek.skyspy.util.Constants.BASE_URL
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApi {
-
-    @GET()
-    suspend fun getCurrentWeather()
-
-    @GET()
-    suspend fun getForecast()
+    @GET(BASE_URL)
+    suspend fun getForecast(
+        @Query("latitude") latitude: Float,
+        @Query("longitude") longitude: Float,
+        @Query("current") current: String,
+        @Query("hourly") hourly: String,
+        @Query("daily") daily: String,
+        @Query("timezone") timezone: String
+    ): WeatherForecast
 }
