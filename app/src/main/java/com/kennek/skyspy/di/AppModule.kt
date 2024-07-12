@@ -20,7 +20,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideWeatherApi(): WeatherApi {
-        val instance = Retrofit.Builder()
+        val instance: WeatherApi = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
             .build()
@@ -34,7 +34,7 @@ object AppModule {
     fun provideWeatherRepository(
         localWeatherDataSource: LocalWeatherDataSource,
         remoteWeatherDataSource: RemoteWeatherDataSource,
-    ) = WeatherRepository(localWeatherDataSource, remoteWeatherDataSource)
+    ): WeatherRepository = WeatherRepository(localWeatherDataSource, remoteWeatherDataSource)
 
     @Singleton
     @Provides
@@ -44,5 +44,5 @@ object AppModule {
     @Provides
     fun provideRemoteWeatherDataSource(
         api: WeatherApi,
-    ) = RemoteWeatherDataSource(api)
+    ) : RemoteWeatherDataSource = RemoteWeatherDataSource(api)
 }

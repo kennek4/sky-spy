@@ -17,7 +17,7 @@ class RemoteWeatherDataSource @Inject constructor(
         timezone: String
     ): Resource<WeatherForecast> {
         try {
-            val response = api.getForecast(
+            val response: WeatherForecast = api.getForecast(
                 latitude,
                 longitude,
                 current,
