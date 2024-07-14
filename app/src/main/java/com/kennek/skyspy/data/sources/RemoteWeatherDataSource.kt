@@ -9,8 +9,8 @@ class RemoteWeatherDataSource @Inject constructor(
     private val api: WeatherApi
 ){
     suspend fun getForecast(
-        latitude: Float,
-        longitude: Float,
+        latitude: Double,
+        longitude: Double,
         current: String,
         hourly: String,
         daily: String,
