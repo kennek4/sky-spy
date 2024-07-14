@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.1"
 converterGson = "2.11.0"
+datastorePreferences = "1.1.1"
 hiltAndroidCompiler = "2.51.1"
 hiltAndroid = "2.51.1"
 kotlin = "2.0.0"
@@ -19,6 +20,7 @@ roomRuntime = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-room-ktx = { module = "androidx.room:room-ktx" }
 androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
