@@ -1,5 +1,6 @@
 package com.kennek.skyspy.di
 
+import com.kennek.skyspy.data.datastore.SettingsRepository
 import com.kennek.skyspy.data.remote.WeatherApi
 import com.kennek.skyspy.data.repositories.WeatherRepository
 import com.kennek.skyspy.data.sources.LocalWeatherDataSource
@@ -34,7 +35,8 @@ object AppModule {
     fun provideWeatherRepository(
         localWeatherDataSource: LocalWeatherDataSource,
         remoteWeatherDataSource: RemoteWeatherDataSource,
-    ): WeatherRepository = WeatherRepository(localWeatherDataSource, remoteWeatherDataSource)
+        settingsRepository: SettingsRepository
+    ): WeatherRepository = WeatherRepository(localWeatherDataSource, remoteWeatherDataSource, settingsRepository)
 
     @Singleton
     @Provides
