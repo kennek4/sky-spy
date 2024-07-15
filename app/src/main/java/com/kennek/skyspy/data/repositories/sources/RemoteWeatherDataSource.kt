@@ -1,7 +1,7 @@
-package com.kennek.skyspy.data.sources
+package com.kennek.skyspy.data.repositories.sources
 
 import com.kennek.skyspy.data.remote.WeatherApi
-import com.kennek.skyspy.data.responses.WeatherForecast
+import com.kennek.skyspy.data.remote.responses.WeatherForecast
 import com.kennek.skyspy.util.Resource
 import javax.inject.Inject
 
