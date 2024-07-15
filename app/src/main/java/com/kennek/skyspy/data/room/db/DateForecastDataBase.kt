@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.kennek.skyspy.data.room.dao.DateForecastDao
-import com.kennek.skyspy.data.room.entities.Converters
+import com.kennek.skyspy.data.room.converters.Converters
 import com.kennek.skyspy.data.room.entities.DateForecast
 
 @Database(
