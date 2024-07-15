@@ -3,8 +3,10 @@ package com.kennek.skyspy.di
 import com.kennek.skyspy.data.datastore.SettingsRepository
 import com.kennek.skyspy.data.remote.WeatherApi
 import com.kennek.skyspy.data.repositories.WeatherRepository
-import com.kennek.skyspy.data.sources.LocalWeatherDataSource
-import com.kennek.skyspy.data.sources.RemoteWeatherDataSource
+import com.kennek.skyspy.data.repositories.sources.LocalWeatherDataSource
+import com.kennek.skyspy.data.repositories.sources.RemoteWeatherDataSource
+import com.kennek.skyspy.data.room.db.CurrentWeatherDataBase
+import com.kennek.skyspy.data.room.db.DateForecastDataBase
 import com.kennek.skyspy.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -40,7 +42,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLocalWeatherDataSource() = LocalWeatherDataSource()
+    fun provideLocalWeatherDataSource(
+        currentWeatherDataBase: CurrentWeatherDataBase,
+        forecastDataBase: DateForecastDataBase
+    ): LocalWeatherDataSource = LocalWeatherDataSource(currentWeatherDataBase, forecastDataBase)
 
     @Singleton
     @Provides
