@@ -1,4 +1,4 @@
-package com.kennek.skyspy.data.room.entities
+package com.kennek.skyspy.data.room.converters
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
