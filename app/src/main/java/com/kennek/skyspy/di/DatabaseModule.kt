@@ -2,8 +2,11 @@ package com.kennek.skyspy.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kennek.skyspy.data.room.dao.ForecastDao
-import com.kennek.skyspy.data.room.db.ForecastDataBase
+import com.google.gson.Gson
+import com.kennek.skyspy.data.room.dao.CurrentWeatherDao
+import com.kennek.skyspy.data.room.dao.DateForecastDao
+import com.kennek.skyspy.data.room.db.CurrentWeatherDataBase
+import com.kennek.skyspy.data.room.db.DateForecastDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,18 +20,42 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideForecastDao(
-        forecastDataBase: ForecastDataBase
-    ): ForecastDao {
-        return forecastDataBase.forecastDao()
+    fun provideGsonObject() : Gson = Gson()
+
+    // CurrentWeather DI
+    @Singleton
+    @Provides
+    fun provideCurrentWeatherDao(
+        currentWeatherDataBase: CurrentWeatherDataBase
+    ): CurrentWeatherDao {
+        return currentWeatherDataBase.currentWeatherDao()
     }
 
     @Singleton
     @Provides
-    fun provideForecastDatabase(@ApplicationContext context: Context): ForecastDataBase {
+    fun provideCurrentWeatherDatabase(@ApplicationContext context: Context): CurrentWeatherDataBase {
         return Room.databaseBuilder(
             context,
-            ForecastDataBase::class.java,
+            CurrentWeatherDataBase::class.java,
+            "current_weather"
+        ).build()
+    }
+
+    // Forecast DI
+    @Singleton
+    @Provides
+    fun provideForecastDao(
+        forecastDataBase: DateForecastDataBase
+    ): DateForecastDao {
+        return forecastDataBase.dateForecastDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideForecastDatabase(@ApplicationContext context: Context): DateForecastDataBase {
+        return Room.databaseBuilder(
+            context,
+            DateForecastDataBase::class.java,
             "forecast"
         ).build()
     }
