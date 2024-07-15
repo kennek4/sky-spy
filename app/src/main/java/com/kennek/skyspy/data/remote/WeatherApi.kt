@@ -1,6 +1,6 @@
 package com.kennek.skyspy.data.remote
 
-import com.kennek.skyspy.data.responses.WeatherForecast
+import com.kennek.skyspy.data.remote.responses.WeatherForecast
 import com.kennek.skyspy.util.Constants.BASE_URL
 import retrofit2.http.GET
 import retrofit2.http.Query
