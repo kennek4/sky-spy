@@ -1,4 +1,4 @@
-package com.kennek.skyspy.data.responses
+package com.kennek.skyspy.data.remote.responses
 
 data class Current(
     val apparent_temperature: Double,

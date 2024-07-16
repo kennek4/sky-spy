@@ -3,6 +3,7 @@ package com.kennek.skyspy.di
 import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
+import com.kennek.skyspy.data.room.converters.Converters
 import com.kennek.skyspy.data.room.dao.CurrentWeatherDao
 import com.kennek.skyspy.data.room.dao.DateForecastDao
 import com.kennek.skyspy.data.room.db.CurrentWeatherDataBase
@@ -52,12 +53,12 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideForecastDatabase(@ApplicationContext context: Context): DateForecastDataBase {
+    fun provideForecastDatabase(@ApplicationContext context: Context, gson: Gson): DateForecastDataBase {
         return Room.databaseBuilder(
             context,
             DateForecastDataBase::class.java,
             "forecast"
-        ).build()
+        ).addTypeConverter(Converters(gson)).build()
     }
 
 }
