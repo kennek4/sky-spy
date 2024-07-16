@@ -8,7 +8,8 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.kennek.skyspy.data.datastore.SettingsRepository
+import com.kennek.skyspy.data.datastore.DataStoreRepository
+import com.kennek.skyspy.data.repositories.GeocodeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,13 +28,14 @@ object DataStoreModule {
 
     @Singleton
     @Provides
-    fun provideSettingsRepository(
-        dataStore: DataStore<Preferences>
-    ): SettingsRepository = SettingsRepository(dataStore)
+    fun provideDataStoreRepository(
+        dataStore: DataStore<Preferences>,
+        geocodeRepository: GeocodeRepository
+    ): DataStoreRepository = DataStoreRepository(dataStore, geocodeRepository)
 
     @Singleton
     @Provides
-    fun providePreferencesDataStore(
+    fun provideDataStore(
         @ApplicationContext context: Context
     ): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
