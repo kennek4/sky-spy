@@ -1,13 +1,14 @@
 package com.kennek.skyspy.di
 
-import com.kennek.skyspy.data.datastore.SettingsRepository
+import com.kennek.skyspy.data.remote.GeoCodeApi
 import com.kennek.skyspy.data.remote.WeatherApi
+import com.kennek.skyspy.data.repositories.GeocodeRepository
 import com.kennek.skyspy.data.repositories.WeatherRepository
 import com.kennek.skyspy.data.repositories.sources.LocalWeatherDataSource
 import com.kennek.skyspy.data.repositories.sources.RemoteWeatherDataSource
-import com.kennek.skyspy.data.room.db.CurrentWeatherDataBase
-import com.kennek.skyspy.data.room.db.DateForecastDataBase
-import com.kennek.skyspy.util.Constants.BASE_URL
+import com.kennek.skyspy.data.room.dao.CurrentWeatherDao
+import com.kennek.skyspy.data.room.dao.DateForecastDao
+import com.kennek.skyspy.util.Constants.BASE_API_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,10 +23,28 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideGeocodeApi(): GeoCodeApi {
+        val instance: GeoCodeApi = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_API_URL)
+            .build()
+            .create(GeoCodeApi::class.java)
+
+        return instance
+    }
+
+    @Singleton
+    @Provides
+    fun provideGeocodeRepository(
+        geoCodeApi: GeoCodeApi
+    ): GeocodeRepository = GeocodeRepository(geoCodeApi)
+
+    @Singleton
+    @Provides
     fun provideWeatherApi(): WeatherApi {
         val instance: WeatherApi = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
+            .baseUrl(BASE_API_URL)
             .build()
             .create(WeatherApi::class.java)
 
@@ -37,15 +56,15 @@ object AppModule {
     fun provideWeatherRepository(
         localWeatherDataSource: LocalWeatherDataSource,
         remoteWeatherDataSource: RemoteWeatherDataSource,
-        settingsRepository: SettingsRepository
-    ): WeatherRepository = WeatherRepository(localWeatherDataSource, remoteWeatherDataSource, settingsRepository)
+        geocodeRepository: GeocodeRepository
+    ): WeatherRepository = WeatherRepository(localWeatherDataSource, remoteWeatherDataSource, geocodeRepository)
 
     @Singleton
     @Provides
     fun provideLocalWeatherDataSource(
-        currentWeatherDataBase: CurrentWeatherDataBase,
-        forecastDataBase: DateForecastDataBase
-    ): LocalWeatherDataSource = LocalWeatherDataSource(currentWeatherDataBase, forecastDataBase)
+        currentWeatherDao: CurrentWeatherDao,
+        forecastDao: DateForecastDao
+    ): LocalWeatherDataSource = LocalWeatherDataSource(currentWeatherDao, forecastDao)
 
     @Singleton
     @Provides
