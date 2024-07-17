@@ -39,23 +39,6 @@ class WeatherViewModel @Inject constructor(
 
     fun onLocationEvent(event: LocationEvent) {
         when (event) {
-            LocationEvent.SaveLocation -> {
-                viewModelScope.launch {
-                    val response: Resource<Pair<Double, Double>> = dataStoreRepository
-                        .isLocationNameValid(_locationState.value.locationName)
-
-                    if (response.data != null) {
-                        val (latitude: Double, longitude: Double) = response.data
-
-                        dataStoreRepository.updateCoordinates(
-                            latitude = latitude,
-                            longitude = longitude
-                        )
-
-                        dataStoreRepository.updateLocationName(_locationState.value.locationName)
-                    }
-                }
-            }
             LocationEvent.GetLocation -> {
                 viewModelScope.launch {
                     _locationState.update {
@@ -67,11 +50,28 @@ class WeatherViewModel @Inject constructor(
                     }
                 }
             }
+
             is LocationEvent.SetLocation -> {
-                _locationState.update {
-                    it.copy(
-                        locationName = event.newLocation
-                    )
+                viewModelScope.launch {
+                    val response: Resource<Pair<Double, Double>> = dataStoreRepository
+                        .isLocationNameValid(event.newLocation)
+
+                    if (response.data != null) {
+                        val (latitude: Double, longitude: Double) = response.data
+
+                        _locationState.update {
+                            it.copy(
+                                locationName = event.newLocation,
+                                latitude = latitude,
+                                longitude = longitude
+                            )
+                        }
+
+                        dataStoreRepository.updateCoordinates(latitude = latitude, longitude = longitude)
+                        dataStoreRepository.updateLocationName(_locationState.value.locationName)
+                    } else {
+                        TODO("Show error message, input name was invalid")
+                    }
                 }
             }
         }
