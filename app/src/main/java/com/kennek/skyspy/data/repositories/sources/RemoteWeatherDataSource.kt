@@ -2,6 +2,10 @@ package com.kennek.skyspy.data.repositories.sources
 
 import com.kennek.skyspy.data.remote.WeatherApi
 import com.kennek.skyspy.data.remote.responses.WeatherForecast
+import com.kennek.skyspy.util.Constants.CURRENT
+import com.kennek.skyspy.util.Constants.DAILY
+import com.kennek.skyspy.util.Constants.HOURLY
+import com.kennek.skyspy.util.Constants.TIMEZONE
 import com.kennek.skyspy.util.Resource
 import javax.inject.Inject
 
@@ -10,26 +14,22 @@ class RemoteWeatherDataSource @Inject constructor(
 ){
     suspend fun getForecast(
         latitude: Double,
-        longitude: Double,
-        current: String,
-        hourly: String,
-        daily: String,
-        timezone: String
+        longitude: Double
     ): Resource<WeatherForecast> {
-        try {
+        return try {
             val response: WeatherForecast = api.getForecast(
                 latitude,
                 longitude,
-                current,
-                hourly,
-                daily,
-                timezone
+                CURRENT,
+                HOURLY,
+                DAILY,
+                TIMEZONE
             )
-            return Resource.Success(
+            Resource.Success(
                 data = response
             )
         } catch (e: Exception) {
-            return Resource.Error(
+            Resource.Error(
                 message = "An error has occurred.\n$e"
             )
         }
